@@ -1,0 +1,14 @@
+# 快速测试版本
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+RUN pip install ccxt pandas numpy
+
+COPY test_follow_catchup_quick.py ./
+
+RUN mkdir -p reports
+
+CMD ["python", "-u", "test_follow_catchup_quick.py"]
