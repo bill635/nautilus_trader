@@ -1,0 +1,20 @@
+# 最终版币安延迟测试 Dockerfile
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends gcc && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+RUN pip install --upgrade pip && \
+    pip install nautilus-trader
+
+COPY docker/binance_latency_final.py ./
+
+RUN mkdir -p /app/reports
+
+CMD ["python", "-u", "binance_latency_final.py"]
